@@ -18,6 +18,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: p
+        run: node --version
+      - name: p
+        run: yarn --version
+      - name: p
+        run: npm --version
       - name: Install dependencies
         run: yarn install --immutable
       - name: Build
