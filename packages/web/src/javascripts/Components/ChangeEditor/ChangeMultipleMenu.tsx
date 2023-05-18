@@ -69,7 +69,7 @@ const ChangeMultipleMenu = ({ application, notes, setDisableClickOutside }: Prop
 
   const selectItem = useCallback(
     async (itemToBeSelected: EditorMenuItem) => {
-      if (!itemToBeSelected.isEntitled) {
+      if (false) {
         premiumModal.activate(itemToBeSelected.name)
         return
       }

@@ -290,6 +290,8 @@ export class SNSessionManager
     }
 
     const subscription = result.data.subscription
+    console.log('getSubscription subscription')
+    console.log(subscription)
 
     return subscription
   }

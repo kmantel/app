@@ -71,7 +71,10 @@ const ClipperView = ({
     () => application.features.getFeatureStatus(FeatureIdentifier.Extension) === FeatureStatus.Entitled,
   )
   const isEntitledRef = useStateRef(isEntitledToExtension)
+  console.log('isEntitledRef ' + isEntitledRef)
   const hasSubscription = application.hasValidSubscription()
+  console.log('hasSubscription', hasSubscription)
+
   useEffect(() => {
     return application.addEventObserver(async (event) => {
       switch (event) {
@@ -266,7 +269,7 @@ const ClipperView = ({
           >
             <Icon className={`h-12 w-12 ${PremiumFeatureIconClass}`} size={'custom'} type={PremiumFeatureIconName} />
           </div>
-          <div className="mb-1 text-center text-lg font-bold">Enable Advanced Features</div>
+          <div className="mb-1 text-center text-lg font-bold">Enable AdvancedYYYYY Features</div>
           <div className="mb-3 text-center">
             To take advantage of <span className="font-semibold">Web Clipper</span> and other advanced features, upgrade
             your current plan.

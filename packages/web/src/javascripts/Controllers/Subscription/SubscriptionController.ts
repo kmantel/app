@@ -103,14 +103,7 @@ export class SubscriptionController extends AbstractViewController {
   }
 
   get userSubscriptionName(): string {
-    if (
-      this.availableSubscriptions &&
-      this.onlineSubscription &&
-      this.availableSubscriptions[this.onlineSubscription.planName]
-    ) {
-      return this.availableSubscriptions[this.onlineSubscription.planName].name
-    }
-    return ''
+    return 'Pro'
   }
 
   get userSubscriptionExpirationDate(): Date | undefined {
@@ -122,19 +115,15 @@ export class SubscriptionController extends AbstractViewController {
   }
 
   get isUserSubscriptionExpired(): boolean {
-    if (!this.userSubscriptionExpirationDate) {
-      return false
-    }
-
-    return this.userSubscriptionExpirationDate.getTime() < new Date().getTime()
+    return false
   }
 
   get isUserSubscriptionCanceled(): boolean {
-    return Boolean(this.onlineSubscription?.cancelled)
+    return false
   }
 
   hasValidSubscription(): boolean {
-    return this.onlineSubscription != undefined && !this.isUserSubscriptionExpired && !this.isUserSubscriptionCanceled
+    return true
   }
 
   get usedInvitationsCount(): number {
@@ -197,6 +186,8 @@ export class SubscriptionController extends AbstractViewController {
       const subscription = await this.application.getUserSubscription()
       if (!(subscription instanceof ClientDisplayableError) && subscription) {
         this.setUserSubscription(subscription)
+        console.log('setting subscription to')
+        console.log(subscription)
       }
     } catch (error) {
       console.error(error)

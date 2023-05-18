@@ -44,7 +44,7 @@ export const UpgradePrompt = ({
         >
           <Icon className={`h-12 w-12 ${PremiumFeatureIconClass}`} size={'custom'} type={PremiumFeatureIconName} />
         </div>
-        <div className="mb-1 text-center text-lg font-bold">Enable Advanced Features</div>
+        <div className="mb-1 text-center text-lg font-bold">Enable AdvancedSSSSS Features</div>
       </div>
       <div className="mb-2 px-4.5 text-center text-sm text-passive-1">
         {featureName && (

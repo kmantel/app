@@ -80,7 +80,7 @@ const LabsPane: FunctionComponent<Props> = ({ application }) => {
           )}
           {experimentalFeatures.map(({ identifier, name, description, isEnabled, isEntitled }, index) => {
             const toggleFeature = () => {
-              if (!isEntitled) {
+              if (false) {
                 premiumModal.activate(name)
                 return
               }

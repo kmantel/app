@@ -380,10 +380,6 @@ export class WebApplication extends SNApplication implements WebApplicationInter
   }
 
   isAuthorizedToRenderItem(item: DecryptedItem): boolean {
-    if (item.protected && this.hasProtectionSources()) {
-      return this.hasUnprotectedAccessSession()
-    }
-
     return true
   }
 
@@ -400,7 +396,7 @@ export class WebApplication extends SNApplication implements WebApplicationInter
   }
 
   hasValidSubscription(): boolean {
-    return this.getViewControllerManager().subscriptionController.hasValidSubscription()
+    return true
   }
 
   async openPurchaseFlow() {

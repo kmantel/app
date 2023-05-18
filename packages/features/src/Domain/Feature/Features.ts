@@ -11,7 +11,11 @@ export function GetFeatures(): FeatureDescription[] {
 }
 
 export function GetFeaturesForSubscription(subscription: SubscriptionName): FeatureDescription[] {
-  return GetFeatures().filter((feature) => feature.availableInSubscriptions.includes(subscription))
+  console.log('GetFeaturesForSubscription')
+  console.log(subscription)
+  var res = GetFeatures().filter((feature) => feature.availableInSubscriptions.includes(subscription))
+  console.log(res)
+  return res
 }
 
 export function FindNativeFeature(identifier: FeatureIdentifier): FeatureDescription | undefined {

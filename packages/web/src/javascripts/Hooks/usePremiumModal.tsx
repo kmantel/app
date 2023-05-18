@@ -33,6 +33,8 @@ const PremiumModalProvider: FunctionComponent<Props> = observer(
     const featureName = featuresController.premiumAlertFeatureName || ''
 
     const hasSubscription = application.hasValidSubscription()
+    console.log(featureName)
+    console.log(hasSubscription)
 
     const activate = useCallback(
       (feature: string) => {
@@ -40,6 +42,7 @@ const PremiumModalProvider: FunctionComponent<Props> = observer(
       },
       [featuresController],
     )
+    console.log(activate)
 
     const close = useCallback(() => {
       featuresController.closePremiumAlert()

@@ -47,7 +47,7 @@ const insertNonInstalledNativeComponentsInMap = (
         const noteType = getNoteTypeForFeatureDescription(editorFeature)
         map[noteType].push({
           name: editorFeature.name as string,
-          isEntitled: false,
+          isEntitled: true,
           noteType,
         })
       }

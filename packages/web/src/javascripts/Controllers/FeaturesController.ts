@@ -107,7 +107,9 @@ export class FeaturesController extends AbstractViewController {
   private isEntitledToFolders(): boolean {
     const status = this.application.features.getFeatureStatus(FeatureIdentifier.TagNesting)
 
-    return status === FeatureStatus.Entitled
+    var s = status === FeatureStatus.Entitled
+    console.log('folders' + s)
+    return s
   }
 
   private isEntitledToSmartViews(): boolean {

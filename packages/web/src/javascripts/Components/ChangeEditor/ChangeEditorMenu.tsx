@@ -114,7 +114,7 @@ const ChangeEditorMenu: FunctionComponent<ChangeEditorMenuProps> = ({
 
   const selectItem = useCallback(
     async (itemToBeSelected: EditorMenuItem) => {
-      if (!itemToBeSelected.isEntitled) {
+      if (false) {
         premiumModal.activate(itemToBeSelected.name)
         return
       }
@@ -230,7 +230,7 @@ const ChangeEditorMenu: FunctionComponent<ChangeEditorMenuProps> = ({
                         key={item.name}
                         onClick={onClickEditorItem}
                         className={'flex-row-reversed py-2'}
-                        checked={item.isEntitled ? isSelected(item) : false}
+                        checked={true? isSelected(item) : false}
                         info={item.description}
                       >
                         <div className="flex flex-grow items-center justify-between">
@@ -243,7 +243,7 @@ const ChangeEditorMenu: FunctionComponent<ChangeEditorMenuProps> = ({
                               </Pill>
                             )}
                           </div>
-                          {!item.isEntitled && (
+                          {true && (
                             <Icon type={PremiumFeatureIconName} className={PremiumFeatureIconClass} />
                           )}
                         </div>

@@ -4,7 +4,6 @@ import {
   convertTimestampToMilliseconds,
   removeFromArray,
   Copy,
-  lastElement,
   isString,
 } from '@standardnotes/utils'
 import { ClientDisplayableError, isErrorResponse } from '@standardnotes/responses'
@@ -296,6 +295,8 @@ export class SNFeaturesService
   }
 
   public async deleteOfflineFeatureRepo(): Promise<void> {
+    console.log('deleteOfflineFeatureRepo')
+    console.log(StorageKey.UserFeatures)
     const repo = this.getOfflineRepo()
     if (repo) {
       await this.itemManager.setItemToBeDeleted(repo)
@@ -387,17 +388,7 @@ export class SNFeaturesService
   }
 
   hasFirstPartySubscription(): boolean {
-    if (this.hasFirstPartyOnlineSubscription()) {
-      return true
-    }
-
-    const offlineRepo = this.getOfflineRepo()
-    if (!offlineRepo || !offlineRepo.content.offlineFeaturesUrl) {
-      return false
-    }
-
-    const hasFirstPartyOfflineSubscription = offlineRepo.content.offlineFeaturesUrl === PROD_OFFLINE_FEATURES_URL
-    return hasFirstPartyOfflineSubscription || new URL(offlineRepo.content.offlineFeaturesUrl).hostname === 'localhost'
+    return true
   }
 
   async updateOnlineRoles(roles: string[]): Promise<{
@@ -533,7 +524,7 @@ export class SNFeaturesService
   }
 
   hasPaidAnyPartyOnlineOrOfflineSubscription(): boolean {
-    return this.onlineRolesIncludePaidSubscription() || this.hasOfflineRepo()
+    return true
   }
 
   public rolesBySorting(roles: string[]): string[] {
@@ -541,15 +532,8 @@ export class SNFeaturesService
   }
 
   public hasMinimumRole(role: string): boolean {
-    const sortedAllRoles = Object.values(RoleName.NAMES)
-
-    const sortedUserRoles = this.rolesBySorting(this.rolesToUseForFeatureCheck())
-
-    const highestUserRoleIndex = sortedAllRoles.indexOf(lastElement(sortedUserRoles) as string)
-
-    const indexOfRoleToCheck = sortedAllRoles.indexOf(role)
-
-    return indexOfRoleToCheck <= highestUserRoleIndex
+    role
+    return true
   }
 
   public isFeatureDeprecated(featureId: FeaturesImports.FeatureIdentifier): boolean {
@@ -557,72 +541,14 @@ export class SNFeaturesService
   }
 
   public isFreeFeature(featureId: FeaturesImports.FeatureIdentifier) {
-    return [FeatureIdentifier.DarkTheme].includes(featureId)
+    console.log(featureId)
+    return true
   }
 
   public getFeatureStatus(featureId: FeaturesImports.FeatureIdentifier): FeatureStatus {
-    if (this.isFreeFeature(featureId)) {
-      return FeatureStatus.Entitled
-    }
-
-    const nativeFeature = FeaturesImports.FindNativeFeature(featureId)
-
-    const isDeprecated = this.isFeatureDeprecated(featureId)
-    if (isDeprecated) {
-      if (this.hasPaidAnyPartyOnlineOrOfflineSubscription()) {
-        return FeatureStatus.Entitled
-      } else {
-        return FeatureStatus.NoUserSubscription
-      }
-    }
-
-    const isThirdParty = nativeFeature == undefined
-    if (isThirdParty) {
-      const component = this.itemManager
-        .getDisplayableComponents()
-        .find((candidate) => candidate.identifier === featureId)
-      if (!component) {
-        return FeatureStatus.NoUserSubscription
-      }
-      if (component.isExpired) {
-        return FeatureStatus.InCurrentPlanButExpired
-      }
-      return FeatureStatus.Entitled
-    }
-
-    if (this.hasPaidAnyPartyOnlineOrOfflineSubscription()) {
-      if (!this.completedSuccessfulFeaturesRetrieval) {
-        const hasCachedFeatures = this.features.length > 0
-        const temporarilyAllowUntilServerUpdates = !hasCachedFeatures
-        if (temporarilyAllowUntilServerUpdates) {
-          return FeatureStatus.Entitled
-        }
-      }
-    } else {
-      return FeatureStatus.NoUserSubscription
-    }
-
-    if (nativeFeature) {
-      if (!this.hasFirstPartySubscription()) {
-        return FeatureStatus.NotInCurrentPlan
-      }
-
-      const roles = this.rolesToUseForFeatureCheck()
-      if (nativeFeature.availableInRoles) {
-        const hasRole = roles.some((role) => {
-          return nativeFeature.availableInRoles?.includes(role)
-        })
-        if (!hasRole) {
-          return FeatureStatus.NotInCurrentPlan
-        }
-      }
-    }
-
+    console.log(featureId)
+    console.log('should return entitledss..')
     return FeatureStatus.Entitled
-  }
-
-  private rolesToUseForFeatureCheck(): string[] {
-    return this.hasFirstPartyOnlineSubscription() ? this.onlineRoles : this.offlineRoles
   }
 
   private componentContentForNativeFeatureDescription(feature: FeaturesImports.FeatureDescription): Models.ItemContent {
