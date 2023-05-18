@@ -52,6 +52,8 @@ export class SNComponent extends DecryptedItem<ComponentContent> implements Comp
 
   constructor(payload: DecryptedPayloadInterface<ComponentContent>) {
     super(payload)
+    console.log('PAYLOAD')
+    console.log(payload)
     /** Custom data that a component can store in itself */
     this.componentData = this.payload.content.componentData || {}
 

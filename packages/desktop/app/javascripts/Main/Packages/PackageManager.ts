@@ -299,6 +299,7 @@ async function installComponent(
   packageInfo: PackageInfo,
   version: string,
 ) {
+  console.log('INSTALL COMPONENT')
   if (!component.content) {
     return
   }
@@ -323,6 +324,7 @@ async function installComponent(
     })
   }
 
+  console.log('PATHS FOR COMPONENT')
   const paths = pathsForComponent(component)
   try {
     logMessage(`Downloading from ${downloadUrl}`)
@@ -344,6 +346,8 @@ async function installComponent(
       await unnestLegacyStructure(paths.absolutePath)
     }
 
+    console.log('component let main')
+
     let main = 'index.html'
     try {
       /** Try to read 'sn.main' field from 'package.json' file */
@@ -359,6 +363,7 @@ async function installComponent(
     } catch (error) {
       logError(error)
     }
+    console.log('ADDING COMPONENT')
 
     component.content.local_url = 'sn://' + paths.relativePath + '/' + main
     component.content.package_info.download_url = packageInfo.download_url
@@ -366,6 +371,8 @@ async function installComponent(
     component.content.package_info.url = packageInfo.url
     component.content.package_info.version = packageInfo.version
     mapping.set(component.uuid, paths.relativePath, version)
+    console.log('GOOD COMPONENT')
+    console.log(component)
 
     sendInstalledMessage(component)
   } catch (error: any) {

@@ -236,6 +236,8 @@ export class ComponentViewer implements ComponentViewerInterface {
     if (this.isNativeFeature()) {
       return false
     }
+    console.log(this.component)
+    console.log(this.component.local_url)
     return this.isDesktop
       ? !this.component.local_url && !this.component.hasValidHostedUrl()
       : !this.component.hasValidHostedUrl()
@@ -250,6 +252,7 @@ export class ComponentViewer implements ComponentViewerInterface {
       return ComponentViewerError.OfflineRestricted
     }
     if (this.hasUrlError()) {
+      console.log('has url error')
       return ComponentViewerError.MissingUrl
     }
 
