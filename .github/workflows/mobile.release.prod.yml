@@ -2,8 +2,6 @@ name: Mobile Release Production
 
 on:
   push:
-    tags:
-      - '*standardnotes/web*'
   workflow_dispatch:
 
 jobs:
