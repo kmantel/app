@@ -14,6 +14,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DEFAULT_SYNC_SERVER: ${{ secrets.DEFAULT_SYNC_SERVER }}
 
     steps:
       - name: Checkout code
