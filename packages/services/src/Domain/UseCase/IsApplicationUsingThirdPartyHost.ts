@@ -2,10 +2,17 @@ import { Result, SyncUseCaseInterface } from '@standardnotes/domain-core'
 
 import { GetHost } from './GetHost'
 
-export class IsApplicationUsingThirdPartyHost implements SyncUseCaseInterface<boolean> {
-  private readonly APPLICATION_DEFAULT_HOSTS = ['api.standardnotes.com', 'sync.standardnotes.org', 'localhost:3123']
+declare const DEFAULT_SYNC_SERVER: string
 
-  private readonly FILES_DEFAULT_HOSTS = ['files.standardnotes.com']
+export class IsApplicationUsingThirdPartyHost implements SyncUseCaseInterface<boolean> {
+  private readonly APPLICATION_DEFAULT_HOSTS = [
+    'api.standardnotes.com',
+    'sync.standardnotes.org',
+    'localhost:3123',
+    DEFAULT_SYNC_SERVER,
+  ]
+
+  private readonly FILES_DEFAULT_HOSTS = ['files.standardnotes.com', DEFAULT_SYNC_SERVER]
 
   constructor(private getHostUseCase: GetHost) {}
 
