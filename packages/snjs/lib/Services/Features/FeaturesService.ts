@@ -56,7 +56,11 @@ import { SettingsClientInterface } from '../Settings/SettingsClientInterface'
 
 type GetOfflineSubscriptionDetailsResponse = OfflineSubscriptionEntitlements | ClientDisplayableError
 
-declare const DEFAULT_SYNC_SERVER: string
+declare const process: {
+  env: {
+    DEFAULT_SYNC_SERVER: string | null | undefined
+  }
+}
 
 export class FeaturesService
   extends AbstractService<FeaturesEvent>
@@ -74,12 +78,12 @@ export class FeaturesService
     'extensions.standardnotes.org',
     'features.standardnotes.com',
     'localhost',
-    DEFAULT_SYNC_SERVER,
+    process.env.DEFAULT_SYNC_SERVER,
   ]
 
   private readonly TRUSTED_CUSTOM_EXTENSIONS_HOSTS = ['listed.to']
 
-  private readonly PROD_OFFLINE_FEATURES_URL = DEFAULT_SYNC_SERVER + '/v1/offline/features'
+  private readonly PROD_OFFLINE_FEATURES_URL = process.env.DEFAULT_SYNC_SERVER + '/v1/offline/features'
 
   constructor(
     private storage: StorageServiceInterface,
