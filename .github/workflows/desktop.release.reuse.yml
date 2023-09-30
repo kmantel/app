@@ -15,6 +15,7 @@ jobs:
       CSC_KEY_PASSWORD: ${{ secrets.MAC_CI_KEYS_PASSWORD }}
       NOTARIZE_APPLE_ID: ${{ secrets.NOTARIZE_APPLE_ID }}
       NOTARIZE_APPLE_ID_PASSWORD: ${{ secrets.NOTARIZE_APPLE_ID_PASSWORD }}
+      DEFAULT_SYNC_SERVER: ${{ secrets.DEFAULT_SYNC_SERVER }}
     defaults:
       run:
         working-directory: packages/desktop
@@ -51,6 +52,8 @@ jobs:
 
   Linux:
     runs-on: ubuntu-latest
+    env:
+      DEFAULT_SYNC_SERVER: ${{ secrets.DEFAULT_SYNC_SERVER }}
     defaults:
       run:
         working-directory: packages/desktop
@@ -126,6 +129,7 @@ jobs:
     env:
       WINDOWS_TOKEN_ALIAS: ${{ secrets.WINDOWS_TOKEN_ALIAS }}
       WINDOWS_TOKEN_PASSWORD: ${{ secrets.WINDOWS_TOKEN_PASSWORD }}
+      DEFAULT_SYNC_SERVER: ${{ secrets.DEFAULT_SYNC_SERVER }}
     defaults:
       run:
         working-directory: packages/desktop

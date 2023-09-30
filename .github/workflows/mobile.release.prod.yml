@@ -8,6 +8,8 @@ on:
 
 jobs:
   android:
+    env:
+      DEFAULT_SYNC_SERVER: ${{ secrets.DEFAULT_SYNC_SERVER }}
     defaults:
       run:
         working-directory: packages/mobile
@@ -66,6 +68,8 @@ jobs:
             packages/mobile/android/app/build/outputs/apk/prod/release/app-prod-release.apk
 
   ios:
+    env:
+      DEFAULT_SYNC_SERVER: ${{ secrets.DEFAULT_SYNC_SERVER }}
     defaults:
       run:
         working-directory: packages/mobile
