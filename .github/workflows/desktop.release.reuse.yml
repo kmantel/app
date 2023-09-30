@@ -122,7 +122,7 @@ jobs:
             packages/desktop/dist/*.yaml
 
   Windows:
-    runs-on: self-hosted
+    runs-on: windows-latest
     env:
       WINDOWS_TOKEN_ALIAS: ${{ secrets.WINDOWS_TOKEN_ALIAS }}
       WINDOWS_TOKEN_PASSWORD: ${{ secrets.WINDOWS_TOKEN_PASSWORD }}
