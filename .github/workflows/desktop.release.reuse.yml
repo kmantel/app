@@ -30,9 +30,10 @@ jobs:
       - run: yarn install --immutable
       - run: yarn build:desktop
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
+      - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
 
       - name: Compile Mac
-        run: yarn run webpack --config desktop.webpack.prod.js --env DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }}
+        run: yarn run webpack --config desktop.webpack.prod.js --env .env
       - name: MacX64
         run: |
           yarn run electron-builder --mac --x64 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
@@ -69,9 +70,10 @@ jobs:
       - run: yarn build:desktop
 
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
+      - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
 
       - name: Compile for AppImage
-        run: yarn run webpack --config desktop.webpack.prod.js --env DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }}
+        run: yarn run webpack --config desktop.webpack.prod.js --env .env
       - name: AppImage
         run: yarn run electron-builder --linux --x64 -c.linux.target=AppImage --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
       - name: AppImageX64
@@ -81,23 +83,23 @@ jobs:
 
       - name: Deb
         run: |
-          yarn run webpack --config desktop.webpack.prod.js --env deb --env DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }}
+          yarn run webpack --config desktop.webpack.prod.js --env deb --env .env
           yarn run electron-builder --linux --x64 -c.linux.target=deb --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
       - name: DebArm64
         env:
           npm_config_target_arch: 'arm64'
           USE_SYSTEM_FPM: 'true'
         run: |
-          yarn run webpack --config desktop.webpack.prod.js --env deb --env DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }}
+          yarn run webpack --config desktop.webpack.prod.js --env deb --env .env
           yarn run electron-builder --linux --arm64 -c.linux.target=deb --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
       - name: Dir
         run: |
-          yarn run webpack --config desktop.webpack.prod.js --env DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }}
+          yarn run webpack --config desktop.webpack.prod.js --env .env
           yarn run electron-builder --linux --x64 -c.linux.target=dir --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
       - name: DirArm64
         run: |
-          yarn run webpack --config desktop.webpack.prod.js --env DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }}
+          yarn run webpack --config desktop.webpack.prod.js --env .env
           yarn run electron-builder --linux --arm64 -c.linux.target=dir --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
         env:
           npm_config_target_arch: 'arm64'
@@ -105,7 +107,7 @@ jobs:
       - name: Snap
         run: |
           sudo snap install snapcraft --classic
-          yarn run webpack --config desktop.webpack.prod.js --env snap --env DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }}
+          yarn run webpack --config desktop.webpack.prod.js --env snap --env .env
           yarn run electron-builder --linux --x64 -c.linux.target=snap --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
       - name: Upload
@@ -136,9 +138,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           node-version-file: '.nvmrc'
           cache: 'yarn'
+      - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
       - run: yarn install --immutable
       - run: yarn build:desktop
-      - run: yarn run webpack --config desktop.webpack.prod.js --env DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }}
+      - run: yarn run webpack --config desktop.webpack.prod.js --env .env
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $env:GITHUB_ENV
       - run: yarn run electron-builder --windows --x64 --ia32 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
