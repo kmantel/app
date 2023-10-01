@@ -147,6 +147,12 @@ jobs:
         uses: actions/upload-artifact@v3.0.0
         with:
           name: exe
-          path: |
-            packages/desktop/dist/*.exe
+          path: packages/desktop/dist/*.exe
+
+      - name: Upload wu
+        if: always()
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: win-unpacked
+          path: packages/desktop/dist/win-unpacked
 
