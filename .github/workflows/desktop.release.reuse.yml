@@ -142,13 +142,6 @@ jobs:
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $env:GITHUB_ENV
       - run: yarn run electron-builder --windows --x64 --ia32 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
-      - name: Upload
-        if: always()
-        uses: actions/upload-artifact@v3.0.0
-        with:
-          name: exe
-          path: packages/desktop/dist/*.exe
-
       - name: Upload wu
         if: always()
         uses: actions/upload-artifact@v3.0.0
@@ -156,3 +149,9 @@ jobs:
           name: win-unpacked
           path: packages/desktop/dist/win-unpacked
 
+      - name: Upload
+        if: always()
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: exe
+          path: packages/desktop/dist/*.exe
