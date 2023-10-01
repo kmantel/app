@@ -4,7 +4,7 @@ import { GetHost } from './GetHost'
 
 declare const process: {
   env: {
-    DEFAULT_SYNC_SERVER: string | null | undefined
+    DEFAULT_SYNC_SERVER: string
   }
 }
 
