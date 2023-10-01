@@ -31,6 +31,7 @@ jobs:
       - run: yarn build:desktop
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
       - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
+      - run: cat .env
 
       - name: Compile Mac
         run: yarn run webpack --config desktop.webpack.prod.js --env .env
@@ -71,6 +72,25 @@ jobs:
 
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
       - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
+      - run: cat .env
+
+      - run: yarn run webpack --config desktop.webpack.prod.js --env .env
+      - name: Build Windows
+        run: yarn run electron-builder --windows --x64 --ia32 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
+
+      - name: Upload win-unpacked
+        if: always()
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: win-unpacked
+          path: packages/desktop/dist/win-unpacked
+
+      - name: Upload x64 exe
+        if: always()
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: exe
+          path: packages/desktop/dist/*x64.exe
 
       - name: Compile for AppImage
         run: yarn run webpack --config desktop.webpack.prod.js --env .env
@@ -139,6 +159,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'yarn'
       - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
+      - run: cat .env
       - run: yarn install --immutable
       - run: yarn build:desktop
       - run: yarn run webpack --config desktop.webpack.prod.js --env .env
@@ -149,12 +170,12 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: win-unpacked
+          name: win-unpacked-win
           path: packages/desktop/dist/win-unpacked
 
       - name: Upload x64 exe
         if: always()
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: exe
+          name: exe-win
           path: packages/desktop/dist/*x64.exe
