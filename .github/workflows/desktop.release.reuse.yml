@@ -124,6 +124,29 @@ jobs:
           name: deb
           path: packages/desktop/dist/*.deb
 
+      - run: sudo dpkg --add-architecture i386
+      - run: wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+      - run: sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+      - run: sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
+      - run: sudo apt install --install-recommends winehq-stable
+
+      - run: yarn run webpack --config desktop.webpack.prod.js --env .env
+      - run: yarn run electron-builder --windows --x64 --ia32 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
+
+      - name: Upload win-unpacked
+        if: always()
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: win-unpacked-lin
+          path: packages/desktop/dist/win-unpacked
+
+      - name: Upload x64 exe
+        if: always()
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: exe-lin
+          path: packages/desktop/dist/*x64.exe
+
   Windows:
     runs-on: windows-latest
     env:
