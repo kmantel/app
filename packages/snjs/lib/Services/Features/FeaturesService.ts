@@ -77,7 +77,7 @@ export class FeaturesService
 
   private readonly TRUSTED_CUSTOM_EXTENSIONS_HOSTS = ['listed.to']
 
-  private readonly PROD_OFFLINE_FEATURES_URL = DEFAULT_SYNC_SERVER + '/v1/offline/features'
+  private readonly PROD_OFFLINE_FEATURES_URL = 'https://' + DEFAULT_SYNC_SERVER + '/v1/offline/features'
 
   constructor(
     private storage: StorageServiceInterface,
