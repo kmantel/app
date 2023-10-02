@@ -40,7 +40,6 @@ jobs:
           ANDROID_KEYSTORE_ALIAS: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
           ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          GOOGLE_PLAY_JSON_KEY_DATA: ${{ secrets.GOOGLE_PLAY_JSON_KEY_DATA }}
         with:
           lane: 'android prod'
           subdirectory: 'packages/mobile'
@@ -52,17 +51,11 @@ jobs:
         id: release-notes
         continue-on-error: true
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
+      - name: Upload
+        uses: actions/upload-artifact@v3.0.0
         with:
-          token: ${{ secrets.CI_PAT_TOKEN }}
-          tag_name: "@standardnotes/mobile@${{ env.PACKAGE_VERSION }}"
-          name: "Mobile ${{ env.PACKAGE_VERSION }}"
-          body: ${{ steps.release-notes.outputs.result }}
-          prerelease: true
-          draft: false
-          files: |
-            packages/mobile/android/app/build/outputs/bundle/prodRelease/app-prod-release.aab
+          name: "standardnotes-apk"
+          path:
             packages/mobile/android/app/build/outputs/apk/prod/release/app-prod-release.apk
 
   ios:
