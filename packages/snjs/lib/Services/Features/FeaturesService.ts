@@ -56,8 +56,6 @@ import { SettingsClientInterface } from '../Settings/SettingsClientInterface'
 
 type GetOfflineSubscriptionDetailsResponse = OfflineSubscriptionEntitlements | ClientDisplayableError
 
-declare const DEFAULT_SYNC_SERVER: string
-
 export class FeaturesService
   extends AbstractService<FeaturesEvent>
   implements FeaturesClientInterface, InternalEventHandlerInterface

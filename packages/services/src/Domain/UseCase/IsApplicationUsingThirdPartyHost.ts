@@ -2,8 +2,6 @@ import { Result, SyncUseCaseInterface } from '@standardnotes/domain-core'
 
 import { GetHost } from './GetHost'
 
-declare const DEFAULT_SYNC_SERVER: string
-
 export class IsApplicationUsingThirdPartyHost implements SyncUseCaseInterface<boolean> {
   private readonly APPLICATION_DEFAULT_HOSTS = [
     'api.standardnotes.com',
