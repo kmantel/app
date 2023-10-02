@@ -25,6 +25,7 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE }}" > keystore.keystore.asc
           gpg -d --passphrase "${{ secrets.KEYSTORE_PASSPHRASE }}" --batch keystore.keystore.asc > android/app/keystore.keystore
+      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r 's;DEFAULT_SYNC_SERVER;${{ secrets.DEFAULT_SYNC_SERVER }};g' {} \;
       - name: Install dependencies
         run: yarn install --immutable
       - run: yarn build:mobile

@@ -27,6 +27,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           node-version-file: '.nvmrc'
           cache: 'yarn'
+      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r 's;DEFAULT_SYNC_SERVER;${{ secrets.DEFAULT_SYNC_SERVER }};g' {} \;
       - run: yarn install --immutable
       - run: yarn build:desktop
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
@@ -66,6 +67,8 @@ jobs:
         uses: ruby/setup-ruby@v1
       - name: Install FPM
         run: sudo gem install fpm -f
+
+      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r 's;DEFAULT_SYNC_SERVER;${{ secrets.DEFAULT_SYNC_SERVER }};g' {} \;
 
       - run: yarn install --immutable
       - run: yarn build:desktop
@@ -163,6 +166,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           node-version-file: '.nvmrc'
           cache: 'yarn'
+      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r 's;DEFAULT_SYNC_SERVER;${{ secrets.DEFAULT_SYNC_SERVER }};g' {} \;
       - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
       - run: cat .env
       - run: yarn install --immutable
