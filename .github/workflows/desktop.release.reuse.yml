@@ -84,41 +84,41 @@ jobs:
 
       - name: Compile for AppImage
         run: yarn run webpack --config desktop.webpack.prod.js --env .env
-      - name: AppImage
-        run: yarn run electron-builder --linux --x64 -c.linux.target=AppImage --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
+      # - name: AppImage
+      #   run: yarn run electron-builder --linux --x64 -c.linux.target=AppImage --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
       - name: AppImageX64
         run: yarn run electron-builder --linux --x64 -c.linux.target=AppImage --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
-      - name: AppImageArm64
-        run: yarn run electron-builder --linux --arm64 -c.linux.target=AppImage --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
+      # - name: AppImageArm64
+      #   run: yarn run electron-builder --linux --arm64 -c.linux.target=AppImage --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
       - name: Deb
         run: |
           yarn run webpack --config desktop.webpack.prod.js --env deb --env .env
           yarn run electron-builder --linux --x64 -c.linux.target=deb --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
-      - name: DebArm64
-        env:
-          npm_config_target_arch: 'arm64'
-          USE_SYSTEM_FPM: 'true'
-        run: |
-          yarn run webpack --config desktop.webpack.prod.js --env deb --env .env
-          yarn run electron-builder --linux --arm64 -c.linux.target=deb --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
+      # - name: DebArm64
+      #   env:
+      #     npm_config_target_arch: 'arm64'
+      #     USE_SYSTEM_FPM: 'true'
+      #   run: |
+      #     yarn run webpack --config desktop.webpack.prod.js --env deb --env .env
+      #     yarn run electron-builder --linux --arm64 -c.linux.target=deb --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
-      - name: Dir
-        run: |
-          yarn run webpack --config desktop.webpack.prod.js --env .env
-          yarn run electron-builder --linux --x64 -c.linux.target=dir --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
-      - name: DirArm64
-        run: |
-          yarn run webpack --config desktop.webpack.prod.js --env .env
-          yarn run electron-builder --linux --arm64 -c.linux.target=dir --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
-        env:
-          npm_config_target_arch: 'arm64'
+      # - name: Dir
+      #   run: |
+      #     yarn run webpack --config desktop.webpack.prod.js --env .env
+      #     yarn run electron-builder --linux --x64 -c.linux.target=dir --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
+      # - name: DirArm64
+      #   run: |
+      #     yarn run webpack --config desktop.webpack.prod.js --env .env
+      #     yarn run electron-builder --linux --arm64 -c.linux.target=dir --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
+      #   env:
+      #     npm_config_target_arch: 'arm64'
 
-      - name: Snap
-        run: |
-          sudo snap install snapcraft --classic
-          yarn run webpack --config desktop.webpack.prod.js --env snap --env .env
-          yarn run electron-builder --linux --x64 -c.linux.target=snap --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
+      # - name: Snap
+      #   run: |
+      #     sudo snap install snapcraft --classic
+      #     yarn run webpack --config desktop.webpack.prod.js --env snap --env .env
+      #     yarn run electron-builder --linux --x64 -c.linux.target=snap --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
       - name: Upload
         uses: actions/upload-artifact@v3.0.0
