@@ -10,6 +10,7 @@ on:
 
 jobs:
   git-sync:
+    if: false
     runs-on: ubuntu-latest
     steps:
       - name: git-sync

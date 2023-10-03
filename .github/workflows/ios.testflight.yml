@@ -4,6 +4,7 @@ on: workflow_dispatch
 
 jobs:
   ios:
+    if: false
     defaults:
       run:
         working-directory: packages/mobile
