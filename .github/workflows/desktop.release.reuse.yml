@@ -1,6 +1,7 @@
 name: Desktop Reusable Release Workflow
 
 on:
+  push:
   workflow_call:
     inputs:
       channel:
