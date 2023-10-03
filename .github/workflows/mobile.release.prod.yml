@@ -28,6 +28,10 @@ jobs:
       - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r "s;DEFAULT_SYNC_SERVER;'${{ secrets.DEFAULT_SYNC_SERVER }}';g" {} \;
       - name: Install dependencies
         run: yarn install --immutable
+
+      - run: rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
+      - run: git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
+
       - run: yarn build:mobile
       - name: Ruby Setup for Fastlane
         uses: ruby/setup-ruby@v1
