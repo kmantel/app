@@ -73,8 +73,10 @@ jobs:
 
       - run: yarn install --immutable
 
-      - run: rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
-      - run: git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
+      - name: Replace markdown-hybrid with my updated version
+        run: |
+          rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
+          git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
 
       - run: yarn build:desktop
 
@@ -155,8 +157,10 @@ jobs:
 
       - run: yarn install --immutable
 
-      - run: rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
-      - run: git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
+      - name: Replace markdown-hybrid with my updated version
+        run: |
+          rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
+          git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
 
       - run: yarn build:desktop
 
