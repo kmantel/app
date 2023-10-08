@@ -34,6 +34,11 @@ jobs:
           rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
           git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
 
+      - name: Replace simple-task-editor with my updated version
+        run: |
+          rm -rf ./../../node_modules/@standardnotes/simple-task-editor/
+          git clone https://github.com/kmantel/simple-task-editor.git ./../../node_modules/@standardnotes/simple-task-editor
+
       - run: yarn build:mobile
       - name: Ruby Setup for Fastlane
         uses: ruby/setup-ruby@v1
