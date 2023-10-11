@@ -76,6 +76,12 @@ jobs:
       - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r "s;DEFAULT_SYNC_SERVER;'${{ secrets.DEFAULT_SYNC_SERVER }}';g" {} \;
 
       - run: yarn install --immutable
+
+      - name: Replace markdown-hybrid with my updated version
+        run: |
+          rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
+          git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
+
       - run: yarn build:desktop
 
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
