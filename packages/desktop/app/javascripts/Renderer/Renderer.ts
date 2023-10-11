@@ -8,7 +8,6 @@ import { CrossProcessBridge } from './CrossProcessBridge'
 import { DesktopDevice } from './DesktopDevice'
 import { ElectronMainEvents } from '../Shared/ElectronMainEvents'
 
-declare const DEFAULT_SYNC_SERVER: string
 declare const WEBSOCKET_URL: string
 declare const ENABLE_UNFINISHED_FEATURES: string
 declare const PURCHASE_URL: string
