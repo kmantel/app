@@ -131,13 +131,6 @@ platform :android do
   def deploy_android(variant, versionCode, track = 'beta')
     sh('yarn run android:bundle')
     build_android(variant, versionCode)
-    upload_to_play_store(
-      track: track,
-      json_key_data: (ENV['GOOGLE_PLAY_JSON_KEY_DATA']).to_s,
-      skip_upload_metadata: true,
-      skip_upload_images: true,
-      skip_upload_screenshots: true
-    )
     bundletool(
       ks_path: 'android/app/keystore.keystore',
       ks_password: ENV['ANDROID_KEYSTORE_PASSWORD'],
