@@ -60,7 +60,7 @@ export class FeaturesService
 
   private getFeatureStatusUseCase = new GetFeatureStatusUseCase(this.items)
 
-  private readonly PROD_OFFLINE_FEATURES_URL = 'https://api.standardnotes.com/v1/offline/features'
+  private readonly PROD_OFFLINE_FEATURES_URL = 'https://' + DEFAULT_SYNC_SERVER + '/v1/offline/features'
 
   constructor(
     private storage: StorageServiceInterface,
@@ -328,7 +328,11 @@ export class FeaturesService
     }
 
     const hasFirstPartyOfflineSubscription = offlineRepo.content.offlineFeaturesUrl === this.PROD_OFFLINE_FEATURES_URL
-    return hasFirstPartyOfflineSubscription || new URL(offlineRepo.content.offlineFeaturesUrl).hostname === 'localhost'
+    return (
+      hasFirstPartyOfflineSubscription ||
+      new URL(offlineRepo.content.offlineFeaturesUrl).hostname === 'localhost' ||
+      new URL(offlineRepo.content.offlineFeaturesUrl).hostname === DEFAULT_SYNC_SERVER
+    )
   }
 
   async updateOnlineRolesWithNewValues(roles: string[]): Promise<void> {

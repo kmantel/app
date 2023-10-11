@@ -32,14 +32,16 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r "s;DEFAULT_SYNC_SERVER;'${{ secrets.DEFAULT_SYNC_SERVER }}';g" {} \;
       - run: yarn install --immutable
       - name: Rebuild Electron Native Modules
         run: yarn workspace @standardnotes/desktop rebuild:home-server
       - run: yarn build:desktop
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
+      - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
 
       - name: Compile Mac
-        run: yarn run webpack --config desktop.webpack.prod.js
+        run: yarn run webpack --config desktop.webpack.prod.js --env .env
       - name: MacX64
         run: |
           yarn run electron-builder --mac --x64 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
@@ -87,6 +89,7 @@ jobs:
       - run: yarn build:desktop
 
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
+      - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
 
       - name: Compile for AppImage
         run: yarn run webpack --config desktop.webpack.prod.js
@@ -150,6 +153,8 @@ jobs:
   Linux-Deb:
     name: Linux Deb
     runs-on: ubuntu-latest
+    env:
+      DEFAULT_SYNC_SERVER: ${{ secrets.DEFAULT_SYNC_SERVER }}
     defaults:
       run:
         working-directory: packages/desktop
@@ -166,6 +171,8 @@ jobs:
           python-version: '3.10'
       - name: Install FPM
         run: sudo gem install fpm -f
+
+      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r "s;DEFAULT_SYNC_SERVER;'${{ secrets.DEFAULT_SYNC_SERVER }}';g" {} \;
 
       - run: yarn install --immutable
 
@@ -441,7 +448,7 @@ jobs:
           sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
           sudo apt install --install-recommends winehq-stable
 
-      - run: yarn run webpack --config desktop.webpack.prod.js
+      - run: yarn run webpack --config desktop.webpack.prod.js --env .env
       - run: yarn run electron-builder --windows --x64 --ia32 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
       - name: Upload x64 exe
