@@ -43,6 +43,13 @@ jobs:
           lane: 'android prod'
           subdirectory: 'packages/mobile'
 
+      - name: Upload
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "standardnotes-apk"
+          path:
+            packages/mobile/android/app/build/outputs/apk/prod/release/app-prod-release.apk
+
       - name: Generate Release Notes
         if: false
         uses: ./actions/release-notes
