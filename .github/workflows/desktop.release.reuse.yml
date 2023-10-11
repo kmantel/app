@@ -122,14 +122,8 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: assets
-          path: |
-            packages/desktop/dist/*.snap
-            packages/desktop/dist/*.AppImage
-            packages/desktop/dist/*.deb
-            packages/desktop/dist/*.blockmap
-            packages/desktop/dist/*.yml
-            packages/desktop/dist/*.yaml
+          name: deb
+          path: packages/desktop/dist/*.deb
 
   Windows:
     if: false
