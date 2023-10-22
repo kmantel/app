@@ -204,7 +204,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: deb
+          name: standardnotes-deb-${{ env.APP_VERSION }}
           path: packages/desktop/dist/*.deb
 
   Linux-Snap:
@@ -300,6 +300,11 @@ jobs:
       - name: Build
         run: yarn build:desktop
 
+      - name: Get App version
+        run: |
+          echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
+        shell: bash
+
       - name: Webpack
         run: yarn run webpack --config desktop.webpack.prod.js
 
@@ -346,7 +351,7 @@ jobs:
       - name: Upload
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: exe
+          name: standardnotes-exe-${{ env.APP_VERSION }}
           path: packages/desktop/dist/*x64.exe
 
   Publish:
