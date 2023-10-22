@@ -51,12 +51,16 @@ jobs:
           lane: 'android prod'
           subdirectory: 'packages/mobile'
 
+      - name: Rename
+        run: |
+          mv ./android/app/build/outputs/apk/prod/release/app-prod-release.apk ./android/app/build/outputs/apk/prod/release/standardnotes-${{ env.PACKAGE_VERSION }}.apk
+
       - name: Upload
         uses: actions/upload-artifact@v3.0.0
         with:
           name: standardnotes-${{ env.PACKAGE_VERSION }}-apk
           path:
-            packages/mobile/android/app/build/outputs/apk/prod/release/app-prod-release.apk
+            packages/mobile/android/app/build/outputs/apk/prod/release/standardnotes-${{ env.PACKAGE_VERSION }}.apk
 
       - name: Generate Release Notes
         if: false
