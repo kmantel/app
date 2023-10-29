@@ -174,8 +174,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
-    if: false
-    needs: [Windows, Mac, Linux]
+    needs: [WindowsOnLinux, Linux]
     defaults:
       run:
         working-directory: packages/desktop
@@ -209,7 +208,6 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          token: ${{ secrets.CI_PAT_TOKEN }}
           tag_name: "@standardnotes/desktop@${{ env.APP_VERSION }}"
           name: "Desktop ${{ env.APP_VERSION }}"
           body: ${{ steps.release-notes.outputs.result }}
