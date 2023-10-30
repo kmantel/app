@@ -56,12 +56,16 @@ jobs:
           cp ./android/app/build/outputs/apk/prod/release/app-prod-release.apk ./android/app/build/outputs/apk/prod/release/standardnotes-${{ env.PACKAGE_VERSION }}.apk
           cp ./android/app/build/outputs/apk/prod/release/app-prod-release.apk ./standardnotes-${{ env.PACKAGE_VERSION }}.apk
 
+      - run: pwd
+      - run: ls
+      - run: find . -name "*.apk"
+
       - name: Upload
         uses: actions/upload-artifact@v3.0.0
         with:
           name: "standardnotes-apk"
           path:
-            ./android/app/build/outputs/apk/prod/release/standardnotes-${{ env.PACKAGE_VERSION }}.apk
+            packages/mobile/android/app/build/outputs/apk/prod/release/standardnotes-${{ env.PACKAGE_VERSION }}.apk
 
       - name: Generate Release Notes
         uses: ./actions/release-notes
