@@ -61,7 +61,7 @@ jobs:
         with:
           name: "standardnotes-apk"
           path:
-            ./standardnotes-${{ env.PACKAGE_VERSION }}.apk
+            ./android/app/build/outputs/apk/prod/release/standardnotes-${{ env.PACKAGE_VERSION }}.apk
 
       - name: Generate Release Notes
         uses: ./actions/release-notes
