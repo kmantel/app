@@ -52,7 +52,9 @@ jobs:
           subdirectory: 'packages/mobile'
 
       - name: Rename
-        run: mv ./android/app/build/outputs/apk/prod/release/app-prod-release.apk ./standardnotes-${{ env.PACKAGE_VERSION }}.apk
+        run: |
+          cp ./android/app/build/outputs/apk/prod/release/app-prod-release.apk ./android/app/build/outputs/apk/prod/release/standardnotes-${{ env.PACKAGE_VERSION }}.apk
+          cp ./android/app/build/outputs/apk/prod/release/app-prod-release.apk ./standardnotes-${{ env.PACKAGE_VERSION }}.apk
 
       - name: Upload
         uses: actions/upload-artifact@v3.0.0
