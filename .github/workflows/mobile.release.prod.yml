@@ -81,8 +81,7 @@ jobs:
           prerelease: true
           draft: false
           files: |
-            packages/mobile/android/app/build/outputs/bundle/prodRelease/app-prod-release.aab
-            packages/mobile/android/app/build/outputs/apk/prod/release/app-prod-release.apk
+            packages/mobile/android/app/build/outputs/apk/prod/release/*.apk
 
   ios:
     if: false
