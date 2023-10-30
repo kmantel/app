@@ -213,7 +213,7 @@ jobs:
           tag_name: "@standardnotes/desktop@${{ env.APP_VERSION }}"
           name: "Desktop ${{ env.APP_VERSION }}"
           body: ${{ steps.release-notes.outputs.result }}
-          prerelease: true
+          prerelease: false
           draft: false
           files: packages/desktop/dist/*
 
