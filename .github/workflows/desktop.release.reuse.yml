@@ -401,6 +401,7 @@ jobs:
           files: packages/desktop/dist/*
 
       - name: Publish Snap
+        if: false
         run: |
           sudo snap install snapcraft --classic
           snapcraft upload dist/standard-notes-${{ env.APP_VERSION }}-linux-amd64.snap --release stable,candidate,beta,edge
