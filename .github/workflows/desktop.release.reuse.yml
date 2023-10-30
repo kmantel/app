@@ -262,6 +262,7 @@ jobs:
           files: packages/desktop/dist/*
 
       - name: Publish Snap
+        if: false
         continue-on-error: true
         run: |
           sudo snap install snapcraft --classic
