@@ -236,6 +236,7 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
+          name: assets
           path: packages/desktop/dist
 
       - name: Generate Checksums
@@ -324,5 +325,5 @@ jobs:
       - name: Upload x64 exe
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: assets
+          name: standardnotes-exe-${{ env.APP_VERSION }}
           path: packages/desktop/dist/*x64.exe
