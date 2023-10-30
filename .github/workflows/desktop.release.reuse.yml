@@ -236,7 +236,6 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: assets
           path: packages/desktop/dist
 
       - name: Generate Checksums
