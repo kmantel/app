@@ -156,7 +156,7 @@ export function getKeyboardShortcuts(platform: Platform, _environment: Environme
     {
       command: SUPER_TOGGLE_SEARCH,
       key: 'f',
-      modifiers: [primaryModifier],
+      modifiers: [primaryModifier, KeyboardModifier.Alt],
     },
     {
       command: SUPER_SEARCH_TOGGLE_REPLACE_MODE,
