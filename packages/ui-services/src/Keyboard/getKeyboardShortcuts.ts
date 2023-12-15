@@ -68,7 +68,7 @@ export function getKeyboardShortcuts(platform: Platform, _environment: Environme
     {
       command: SEARCH_KEYBOARD_COMMAND,
       code: 'KeyF',
-      modifiers: [KeyboardModifier.Alt, KeyboardModifier.Shift],
+      modifiers: [primaryModifier],
     },
     {
       command: CANCEL_SEARCH_COMMAND,
