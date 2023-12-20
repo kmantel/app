@@ -284,7 +284,7 @@ jobs:
         with:
           python-version: '3.10'
 
-      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r "s;DEFAULT_SYNC_SERVER;'${{ secrets.DEFAULT_SYNC_SERVER }}';g" {} \;
+      - run: $files = git grep --no-color -l DEFAULT_SYNC_SERVER; ForEach($file in $files){ (Get-Content $file) | ForEach-Object {$_ -replace 'DEFAULT_SYNC_SERVER', "'${{ secrets.DEFAULT_SYNC_SERVER }}'"} | Set-Content $file }
 
       - name: Install Dependencies
         run: yarn install --immutable
@@ -294,7 +294,7 @@ jobs:
 
       - name: Replace markdown-hybrid with my updated version
         run: |
-          rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
+          Remove-Item -Recurse -Force ./../../node_modules/@standardnotes/markdown-hybrid/
           git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
 
       - name: Build
