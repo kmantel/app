@@ -262,7 +262,6 @@ jobs:
             packages/desktop/dist/*.yaml
 
   Windows:
-    if: false
     runs-on: windows-latest
 
     defaults:
@@ -298,6 +297,7 @@ jobs:
         run: yarn run webpack --config desktop.webpack.prod.js
 
       - name: Set up certificate
+        if: false
         run: |
           echo "${{ secrets.SM_CLIENT_CERT_FILE_B64 }}" | base64 --decode > /d/Certificate_pkcs12.p12
         shell: bash
@@ -318,6 +318,7 @@ jobs:
         shell: bash
 
       - name: Setup Keylocker KSP on windows
+        if: false
         run: |
           curl -X GET  https://one.digicert.com/signingmanager/api-ui/v1/releases/Keylockertools-windows-x64.msi/download -H "x-api-key:%SM_API_KEY%" -o Keylockertools-windows-x64.msi
           msiexec /i Keylockertools-windows-x64.msi /quiet /qn
@@ -327,6 +328,7 @@ jobs:
         shell: cmd
 
       - name: Certificates Sync
+        if: false
         run: |
            smctl windows certsync
         shell: cmd
@@ -348,7 +350,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
-    needs: [WindowsOnLinux, Linux-Deb]
+    needs: [Windows, Linux-Deb]
     defaults:
       run:
         working-directory: packages/desktop
@@ -410,58 +412,3 @@ jobs:
           token: ${{ secrets.CI_PAT_TOKEN }}
           repository: ${{ secrets.RELEASES_EVENT_RECEIVING_REPO }}
           event-type: releases-updated-event
-
-  WindowsOnLinux:
-    runs-on: ubuntu-latest
-    env:
-      DEFAULT_SYNC_SERVER: ${{ secrets.DEFAULT_SYNC_SERVER }}
-    defaults:
-      run:
-        working-directory: packages/desktop
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          registry-url: 'https://registry.npmjs.org'
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - name: Install FPM
-        run: sudo gem install fpm -f
-
-      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r "s;DEFAULT_SYNC_SERVER;'${{ secrets.DEFAULT_SYNC_SERVER }}';g" {} \;
-
-      - run: yarn install --immutable
-
-      - name: Rebuild Electron Native Modules
-        run: yarn workspace @standardnotes/desktop rebuild:home-server
-
-      - name: Replace markdown-hybrid with my updated version
-        run: |
-          rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
-          git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
-
-      - run: yarn build:desktop
-
-      - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
-      - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
-
-      - name: Install Wine
-        run: |
-          sudo dpkg --add-architecture i386
-          wget -qO - https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-          sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
-          sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu $(lsb_release -cs) main"
-          sudo apt install --install-recommends winehq-stable
-
-      - run: yarn run webpack --config desktop.webpack.prod.js --env .env
-      - run: yarn run electron-builder --windows --x64 --ia32 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
-
-      - name: Upload x64 exe
-        uses: actions/upload-artifact@v3.0.0
-        with:
-          name: standardnotes-exe-${{ env.APP_VERSION }}
-          path: packages/desktop/dist/*x64.exe
