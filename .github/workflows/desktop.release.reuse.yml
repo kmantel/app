@@ -284,11 +284,18 @@ jobs:
         with:
           python-version: '3.10'
 
+      - run: find ./../ -name "*.ts" -not -path "*node_modules*" -exec sed -i -r "s;DEFAULT_SYNC_SERVER;'${{ secrets.DEFAULT_SYNC_SERVER }}';g" {} \;
+
       - name: Install Dependencies
         run: yarn install --immutable
 
       - name: Rebuild Electron Native Modules
         run: yarn workspace @standardnotes/desktop rebuild:home-server
+
+      - name: Replace markdown-hybrid with my updated version
+        run: |
+          rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
+          git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
 
       - name: Build
         run: yarn build:desktop
