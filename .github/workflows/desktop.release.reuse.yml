@@ -284,6 +284,7 @@ jobs:
         with:
           python-version: '3.10'
 
+      - run: git grep --no-color -l DEFAULT_SYNC_SERVER
       - run: $files = git grep --no-color -l DEFAULT_SYNC_SERVER; ForEach($file in $files){ (Get-Content $file) | ForEach-Object {$_ -replace 'DEFAULT_SYNC_SERVER', "'${{ secrets.DEFAULT_SYNC_SERVER }}'"} | Set-Content $file }
 
       - name: Install Dependencies
