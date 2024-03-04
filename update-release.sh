@@ -54,4 +54,4 @@ git rebase "$latest_web"
 if (( $? )); then
     exit 1
 fi
-git push --set-upstream origin
+git push --set-upstream origin "$version_branch"
