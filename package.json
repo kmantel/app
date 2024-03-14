@@ -50,7 +50,8 @@
     "@lexical/list@0.13.1": "patch:@lexical/list@npm:0.13.1#.yarn/patches/@lexical-list-npm-0.13.1-788c53f078.patch"
   },
   "dependencies": {
-    "@standardnotes/snjs": "workspace:*"
+    "@standardnotes/snjs": "workspace:*",
+    "electron-find": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",

@@ -6,6 +6,7 @@ import {
   NEXT_LIST_ITEM_KEYBOARD_COMMAND,
   PREVIOUS_LIST_ITEM_KEYBOARD_COMMAND,
   SEARCH_KEYBOARD_COMMAND,
+  FINDINPAGE_SEARCH_KEYBOARD_COMMAND,
   SELECT_ALL_ITEMS_KEYBOARD_COMMAND,
   SHOW_HIDDEN_OPTIONS_KEYBOARD_COMMAND,
   DELETE_NOTE_KEYBOARD_COMMAND,
@@ -68,6 +69,11 @@ export function getKeyboardShortcuts(platform: Platform, _environment: Environme
       command: SEARCH_KEYBOARD_COMMAND,
       code: 'KeyF',
       modifiers: [primaryModifier],
+    },
+    {
+      command: FINDINPAGE_SEARCH_KEYBOARD_COMMAND,
+      code: 'KeyF',
+      modifiers: [primaryModifier, KeyboardModifier.Alt, KeyboardModifier.Shift],
     },
     {
       command: CANCEL_SEARCH_COMMAND,

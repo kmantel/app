@@ -5,6 +5,7 @@ import {
   NEXT_LIST_ITEM_KEYBOARD_COMMAND,
   PREVIOUS_LIST_ITEM_KEYBOARD_COMMAND,
   SEARCH_KEYBOARD_COMMAND,
+  FINDINPAGE_SEARCH_KEYBOARD_COMMAND,
   SELECT_ALL_ITEMS_KEYBOARD_COMMAND,
 } from '@standardnotes/ui-services'
 import { WebApplication } from '@/Application/WebApplication'
@@ -36,6 +37,8 @@ import { mergeRefs } from '@/Hooks/mergeRefs'
 import Icon from '../Icon/Icon'
 import MobileMultiSelectionToolbar from './MobileMultiSelectionToolbar'
 import StyledTooltip from '../StyledTooltip/StyledTooltip'
+import { remote, ipcRenderer } from 'electron'
+import { FindInPage } from 'electron-find'
 
 type Props = {
   application: WebApplication
@@ -221,6 +224,15 @@ const ContentListView = forwardRef<HTMLDivElement, Props>(
               event.preventDefault()
               searchBarElement.focus()
             }
+          },
+        },
+        {
+          command: FINDINPAGE_SEARCH_KEYBOARD_COMMAND,
+          category: 'General',
+          description: 'Toggle findinpage global search',
+          onKeyDown: (event) => {
+            let findInPage = new FindInPage(remote.getCurrentWebContents())
+            findInPage.openFindWindow()
           },
         },
         {

@@ -6580,6 +6580,7 @@ __metadata:
     "@typescript-eslint/parser": ^6.2.0
     changelog-parser: ^2.8.1
     css-loader: ^6.8.1
+    electron-find: ^1.0.7
     eslint: ^8.45.0
     eslint-plugin-prettier: ^5.0.0
     lint-staged: ^13.2.3
@@ -13439,6 +13440,13 @@ __metadata:
     electron-builder: cli.js
     install-app-deps: install-app-deps.js
   checksum: e57fd4b8bb57d9f9761769b6e6c5b0c24381d2fea1212e7c5816f01ca7b80b7b80be440674e80ce67310bbf352d3579220baa5d524c3ee1f145134f982d10768
+  languageName: node
+  linkType: hard
+
+"electron-find@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "electron-find@npm:1.0.7"
+  checksum: 1383610b26191ba0b5025833a39a6d1b79ef2f3bbb15178007c5b50df5bb7f076522ce17a08abe5241979a8c4c1b45087f0b1a53f77771343d94591df71ba46d
   languageName: node
   linkType: hard
 
