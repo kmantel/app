@@ -67,7 +67,7 @@ export function getKeyboardShortcuts(platform: Platform, _environment: Environme
     {
       command: SEARCH_KEYBOARD_COMMAND,
       code: 'KeyF',
-      modifiers: [primaryModifier],
+      modifiers: [primaryModifier, KeyboardModifier.Shift],
     },
     {
       command: CANCEL_SEARCH_COMMAND,
@@ -97,7 +97,7 @@ export function getKeyboardShortcuts(platform: Platform, _environment: Environme
     },
     {
       command: TOGGLE_FOCUS_MODE_COMMAND,
-      key: 'f',
+      key: 'o',
       modifiers: [primaryModifier, KeyboardModifier.Shift],
     },
     {
