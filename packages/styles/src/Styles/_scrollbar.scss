@@ -15,7 +15,7 @@
     border: $thumb-width solid rgba(0, 0, 0, 0);
     background-clip: padding-box;
     -webkit-border-radius: 10px;
-    background-color: var(--sn-stylekit-scrollbar-thumb-color);
+    background-color: transparent;
     -webkit-box-shadow:
       inset -1px -1px 0px rgba(0, 0, 0, 0.05),
       inset 1px 1px 0px rgba(0, 0, 0, 0.05);
@@ -42,6 +42,11 @@
       }
     }
   }
+}
+
+#navigation:hover ::-webkit-scrollbar-thumb,
+#items-column:hover ::-webkit-scrollbar-thumb {
+  background-color: var(--sn-stylekit-scrollbar-thumb-color);
 }
 
 body:not(.chromium),
