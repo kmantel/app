@@ -10,7 +10,6 @@ on:
 
 jobs:
   Mac:
-    if: false
     runs-on: macos-latest
     env:
       CSC_LINK: ${{ secrets.MAC_CI_KEYS }}
@@ -36,6 +35,12 @@ jobs:
       - run: yarn install --immutable
       - name: Rebuild Electron Native Modules
         run: yarn workspace @standardnotes/desktop rebuild:home-server
+
+      - name: Replace markdown-hybrid with my updated version
+        run: |
+          rm -rf ./../../node_modules/@standardnotes/markdown-hybrid/
+          git clone https://github.com/kmantel/markdown-pro.git ./../../node_modules/@standardnotes/markdown-hybrid
+
       - run: yarn build:desktop
       - run: echo APP_VERSION=$(node -p "require('./../web/package.json').version") >> $GITHUB_ENV
       - run: echo DEFAULT_SYNC_SERVER=${{ secrets.DEFAULT_SYNC_SERVER }} >> .env
