@@ -32,8 +32,8 @@
   "description": "A Simple And Private Notes App",
   "version": "1.0",
   "manifest_version": 2,
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "background_color": "#000000",
   "display": "standalone",
   "start_url": ".."
 }

@@ -353,7 +353,7 @@ export class ThemeManager extends AbstractUIService {
 
     if (this.themesActiveInTheUI.isEmpty()) {
       if (this.application.isNativeMobileWeb()) {
-        this.application.mobileDevice.handleThemeSchemeChange(false, '#ffffff')
+        this.application.mobileDevice.handleThemeSchemeChange(false, '#000000')
       }
       this.toggleTranslucentUIColors()
     }
@@ -361,7 +361,7 @@ export class ThemeManager extends AbstractUIService {
 
   private getBackgroundColor() {
     const bgColor = getComputedStyle(document.documentElement).getPropertyValue('--sn-stylekit-background-color').trim()
-    return bgColor.length ? bgColor : '#ffffff'
+    return bgColor.length ? bgColor : '#000000'
   }
 
   private shouldUseTranslucentUI() {

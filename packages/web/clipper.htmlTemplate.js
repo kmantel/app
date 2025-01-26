@@ -5,7 +5,7 @@ module.exports = ({ htmlWebpackPlugin }) => {
 		<meta charset="utf-8" />
 		<meta content="IE=edge" http-equiv="X-UA-Compatible" />
 		<meta content="viewport-fit=cover, width=device-width, initial-scale=1" name="viewport" />
-		<meta name="theme-color" content="#ffffff" />
+		<meta name="theme-color" content="#000000" />
 		<title>Standard Notes</title>
 		<script src="./globals.js"></script>
 		${htmlWebpackPlugin.tags.headTags}
