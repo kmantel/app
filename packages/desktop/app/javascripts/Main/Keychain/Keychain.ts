@@ -51,6 +51,7 @@ function askForKeychainAccess(store: Store): Promise<BrowserWindow> {
       contextIsolation: true,
     },
     autoHideMenuBar: true,
+    backgroundColor: '#000000',
   })
 
   window.on('ready-to-show', window.show)

@@ -172,6 +172,7 @@ async function createWindow(store: Store): Promise<Electron.BrowserWindow> {
       sandbox: true,
       preload: Paths.preloadJs,
     },
+    backgroundColor: '#000000',
   })
   if (position.isFullScreen) {
     window.setFullScreen(true)
