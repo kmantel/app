@@ -540,6 +540,12 @@ export class ComponentViewer implements ComponentViewerInterface {
     this.postActiveThemes()
   }
 
+  // NOTE: here is where you could add in the "editor settings" theme
+  // basically instead, send a custom or new event that sets size and height
+  // on the component element:
+  // const [lineHeight] = useLocalPreference(LocalPrefKey.EditorLineHeight)
+  // const [fontSize] = useLocalPreference(LocalPrefKey.EditorFontSize)
+  // const responsiveFontSize = useResponsiveEditorFontSize(fontSize, false)
   public postActiveThemes(): void {
     const urls = this.config.componentManagerFunctions.urlsForActiveThemes()
     const data: MessageData = {
