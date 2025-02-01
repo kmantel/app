@@ -50,7 +50,7 @@ jobs:
         run: yarn run electron-builder --mac --arm64 --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
       - name: Upload
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: assets
           path: |
@@ -101,7 +101,7 @@ jobs:
         run: yarn run electron-builder --linux --arm64 -c.linux.target=AppImage --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
       - name: Upload
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: assets
           path: |
@@ -202,7 +202,7 @@ jobs:
           yarn run electron-builder --linux --arm64 -c.linux.target=deb --publish=never --c.extraMetadata.version=${{ env.APP_VERSION }}
 
       - name: Upload
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: standardnotes-deb-${{ env.APP_VERSION }}
           path: packages/desktop/dist/*.deb
@@ -253,7 +253,7 @@ jobs:
         run: review-tools.snap-review dist/standard-notes-${{ env.APP_VERSION }}-linux-amd64.snap
 
       - name: Upload
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: assets
           path: |
@@ -349,7 +349,7 @@ jobs:
         run: yarn run electron-builder --windows --x64 --ia32 --publish=never --c.extraMetadata.version=$(node -p "require('./../web/package.json').version")
 
       - name: Upload
-        uses: actions/upload-artifact@v3.0.0
+        uses: actions/upload-artifact@v4
         with:
           name: standardnotes-exe-${{ env.APP_VERSION }}
           path: packages/desktop/dist/*x64.exe
