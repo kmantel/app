@@ -374,12 +374,12 @@ jobs:
 
       - run: yarn install --immutable
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: standardnotes-exe-${{ env.APP_VERSION }}
           path: packages/desktop/dist
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: standardnotes-deb-${{ env.APP_VERSION }}
           path: packages/desktop/dist
